@@ -1,0 +1,15 @@
+.welcome {
+    color: #111; font-family: 'Chalkduster', sans-serif; font-size: 60px;
+    font-weight: bold; letter-spacing: -1px; line-height: 1;
+    margin-top: 1em;
+}
+
+.grade {
+    color: #111; font-family: 'Chalkduster', sans-serif; font-size: 50px;
+    font-weight: bold; letter-spacing: -1px; line-height: 1;
+}
+
+.userName {
+    color: #111; font-family: 'Bradley Hand', sans-serif; font-size: 30px;
+    font-weight: bold; letter-spacing: -1px; line-height: 1;
+}

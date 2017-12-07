@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Photo Viewer</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../utility.js"></script>
+    <script type="text/javascript" src="../DoublyLinkedList.js"></script>
+    <style>
+        img {
+            width: 30em;
+            height: 20em;
+        }
+    </style>
+</head>
+<body style="background-color: rgb(255,242,203)">
+    <h1><u>Viewer</u></h1>
+    <img id="image" onclick="nextImgfunc()">
+    <br><br>
+    Photos' Folder: <input type="text" id="directory" value="umcp/"><br>
+    Common Name: <input type="text" id="commonName" value="college"><br>
+    Start Photo Number: <input type="number" id="startNum" value="1">
+    End Photo Number: <input type="number" id="endNum" value="1"><br><br>
+    <input type="button" value="Slide Show" id="slideShow">&nbsp;
+    <input type="button" value="Random Slide Show" id="randomSlidShow">&nbsp;
+    <input type="button" value="Previous Slide" id="prevImg">&nbsp;
+    <input type="button" value="Next Slide" id="nextImg">&nbsp;<br><br>
+    <input type="button" value="Auto Slide Show" id="autoSlide">&nbsp;
+    <input type="button" value="Auto Random Slide Show" id="autoRandom">&nbsp;
+    <input type="button" value="Stop Auto Show" id="stopAuto">&nbsp;<br><br>
+
+    <script>
+
+        var imageList = new DoubleLinkedList();
+        var currImg = null;
+
+        let slide = document.getElementById("slideShow");
+        let random = document.getElementById("randomSlidShow");
+        let prevImg = document.getElementById("prevImg");
+        let nextImg = document.getElementById("nextImg");
+        let autoSlide = document.getElementById("autoSlide");
+        let autoRandom = document.getElementById("autoRandom");
+        let stopAuto = document.getElementById("stopAuto");
+
+        slide.onclick = function() {
+            getArrayPhotosNames();
+            currImg = imageList.head;
+            document.getElementById("image").setAttribute("src", currImg.value);
+        };
+
+        prevImg.onclick = function () {
+            if(currImg.prev === null) {
+                currImg = imageList.tail;
+            } else {
+                currImg = currImg.prev;
+            }
+            document.getElementById("image").setAttribute("src", currImg.value);
+        };
+
+        nextImg.onclick = function () {
+            nextImgfunc();
+        };
+
+        random.onclick = function () {
+              randomize();
+              currImg = imageList.head;
+            document.getElementById("image").setAttribute("src", currImg.value);
+        };
+
+        autoSlide.onclick = function () {
+            getArrayPhotosNames();
+            currImg = imageList.head;
+            document.getElementById("image").setAttribute("src", currImg.value);
+            var intervalInMilliseconds = 1000;
+            nIntervId = setInterval("nextImgfunc()", intervalInMilliseconds);
+        };
+
+        autoRandom.onclick = function () {
+            randomize();
+            currImg = imageList.head;
+            document.getElementById("image").setAttribute("src", currImg.value);
+            var intervalInMilliseconds = 1000;
+            nIntervId = setInterval("nextImgfunc()", intervalInMilliseconds);
+        };
+        
+        stopAuto.onclick = function () {
+            clearInterval(nIntervId);
+        };
+
+
+        // PhotoViewer Class
+        function PhotoViewer(name, description) {
+            Utility.call(this, name, description);
+        }
+
+        PhotoViewer.prototype = Object.create(Utility.prototype);
+        PhotoViewer.prototype.constructor = PhotoViewer;
+
+        function nextImgfunc() {
+            if(currImg.next === null) {
+                currImg = imageList.head;
+            } else {
+                currImg = currImg.next;
+            }
+            document.getElementById("image").setAttribute("src", currImg.value);
+        }
+
+        function getArrayPhotosNames() {
+
+            let directoryName = document.getElementById("directory").value;
+            let commonName = document.getElementById("commonName").value;
+            let startNum = parseInt(document.getElementById("startNum").value);
+            let endNum = parseInt(document.getElementById("endNum").value);
+
+            if(startNum > endNum) {
+                alert("Invalid Range")
+            }
+
+            imageList = new DoubleLinkedList();
+            for(let i = startNum; i <= endNum; i++) {
+                let imageName = directoryName + commonName + i + ".jpg";
+                imageList.insert(imageName);
+            }
+        }
+        
+        function randomize() {
+            let directoryName = document.getElementById("directory").value;
+            let commonName = document.getElementById("commonName").value;
+            let startNum = parseInt(document.getElementById("startNum").value);
+            let endNum = parseInt(document.getElementById("endNum").value);
+
+            if(startNum > endNum) {
+                alert("Invalid Range")
+            }
+
+            imageList = new DoubleLinkedList();
+            let randomArr = [];
+            for(let i=startNum; i <= endNum; i++) {
+                randomArr[i-startNum] = getRandomBetween(startNum,endNum);
+            }
+            for(let j=0; j<randomArr.length; j++) {
+                let imageName = directoryName + commonName + randomArr[j] + ".jpg";
+                imageList.insert(imageName);
+            }
+        }
+
+        // source: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/random#Getting_a_random_integer_between_two_values
+        function getRandomBetween(min, max) {
+            return Math.floor(Math.random() * (max - min + 1)) + min;
+        }
+        
+    </script>
+</body>
+</html>

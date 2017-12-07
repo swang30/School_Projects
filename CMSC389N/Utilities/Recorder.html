@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Recorder</title>
+    <script type="text/javascript" src="DoublyLinkedList.js"></script>
+    <script type="text/javascript" src="utility.js"></script>
+</head>
+<body>
+    <div style="display:inline-block;margin-right:4em;">
+        <canvas id="canvas" width="400" height="300" style="border: 2px solid"></canvas>
+    </div>
+
+    <div style="display:inline-block;" >
+        <h1>Recorder</h1><br>
+        <h3><u>Instructions</u></h3>
+        <p>Click "Start Recording" to record the drawing<br>
+            Click "Play" to play back the drawing you just made <br>
+            Click "Save Recording" to save the recording to local storage<br>
+            Click "Change Color" to change color from red to white. Use it as an eraser<br>
+            Click "Retrieve Recording" to retrieve most recent saved recording in local storage<br></p>
+    </div><br>
+    <input type="button" value="Start Recording" id="startRecording">
+    <input type="button" value="Stop Recording" id="stopRecording">
+    <input type="button" value="Play" id="play"><br><br>
+    <input type="button" value="Save Recording" id="saveRecording">
+    <input type="button" value="Change Color" id="changeColor">
+    <input type="button" value="Clear Screen" id="clearScreen"><br><br>
+    <input type="button" value="Retrieve Saved Recording" id="retrieveRecording"><br>
+    <div>
+        <p id="savedRecord"></p>
+    </div>
+
+
+    <script>
+        let color = "red";
+        let sideLength = 5;
+        var ifRecord = false;
+        var recordList = new DoubleLinkedList();
+
+        main();
+
+        function main() {
+            document.onmousemove = processMousePosition;
+            document.getElementById("startRecording").onclick = startRecord;
+            document.getElementById("stopRecording").onclick = stopRecord;
+            document.getElementById("changeColor").onclick = changeColor;
+            document.getElementById("clearScreen").onclick = clearScreen;
+            document.getElementById("play").onclick = playRecording;
+            document.getElementById("saveRecording").onclick = saveRecording;
+            document.getElementById("retrieveRecording").onclick = retrieveRecording;
+        }
+
+        function processMousePosition(evt) {
+            draw(evt.pageX, evt.pageY);
+        }
+
+        function changeColor() {
+            if (color === "red") {
+                color = "white";
+                sideLength = 500;
+            } else {
+                color = "red";
+                sideLength = 5;
+            }
+        }
+
+        function draw(xPos, yPos) {
+            let context = document.getElementById("canvas").getContext("2d");
+            let rect = document.getElementById("canvas").getBoundingClientRect();
+            //console.log(rect.left + " " + rect.right + " " + rect.bottom + " " + rect.top);
+           // console.log(xPos + " " + yPos);
+
+            if(ifRecord && (xPos >= rect.left) && (xPos <= rect.right) && (yPos <= rect.bottom) && (yPos >= rect.top)) {
+                let xyValue = [xPos, yPos];
+                recordList.insert(xyValue);
+               // console.log(xPos);
+            }
+
+            context.fillStyle = color;
+            context.fillRect(xPos, yPos, sideLength, sideLength);
+        }
+        
+        function startRecord() {
+            recordList = new DoubleLinkedList();
+            ifRecord = true;
+        }
+
+        function stopRecord() {
+            ifRecord = false;
+        }
+        
+        function clearScreen() {
+            let context = document.getElementById("canvas").getContext("2d");
+            context.clearRect(0, 0, 400, 500);
+        }
+
+        function playRecording() {
+            clearScreen();
+            let currNode = recordList.head;
+            
+            function drawingLoop() {
+                setTimeout(function () {
+                        draw(currNode.value[0], currNode.value[1]);
+                        //console.log(currNode.value[0]);
+                        currNode = currNode.next;
+                        if(currNode !== null) {
+                            drawingLoop();
+                        }
+                }, 100);
+            }
+
+            drawingLoop();
+        }
+
+        function playRetrievedRecord(Xcoor, Ycoor) {
+            clearScreen();
+            let index = 0;
+
+            function drawingLoop() {
+                setTimeout(function () {
+                    draw(Xcoor[index], Ycoor[index]);
+                    //console.log(currNode.value[0]);
+                    index++;
+                    if(index < Xcoor.length) {
+                        drawingLoop();
+                    }
+                }, 100);
+            }
+
+            drawingLoop();
+        }
+        
+        function saveRecording() {
+            let Xcoor = [];
+            let Ycoor = [];
+            let currNode = recordList.head;
+            while (currNode !== null) {
+                Xcoor.push(currNode.value[0]);
+                Ycoor.push(currNode.value[1]);
+                currNode = currNode.next;
+            }
+            localStorage.setItem("recordingX", JSON.stringify(Xcoor));
+            localStorage.setItem("recordingY", JSON.stringify(Ycoor));
+          //  console.log("reach " + recordList.length + "  " + index);
+        }
+        
+        function retrieveRecording() {
+            let Xcoor = JSON.parse(localStorage.getItem("recordingX"));
+            let Ycoor = JSON.parse(localStorage.getItem("recordingY"));
+            playRetrievedRecord(Xcoor, Ycoor);
+        }
+        
+        function Recorder(name, description) {
+            Utility.call(this, name, description);
+        }
+
+        Recorder.prototype = Object.create(Utility.prototype);
+        Recorder.prototype.constructor = Recorder;
+
+    </script>
+</body>
+</html>

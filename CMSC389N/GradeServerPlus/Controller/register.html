@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <title>Coding Cage - Login & Registration System</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+        <script src="register.js"></script>
+    </head>
+    <body class="container">
+
+    <div id="login-form" class="form-group row">
+        <form method="post" action="register.php" onsubmit="return validateRegisterForm()">
+            <h2 class="">Sign Up.</h2>
+            <hr />
+            <input type="text" id="username" name="username" class="form-control" placeholder="Enter Your Email" />
+            <br />
+            
+            <input type="password" id="password" name="password" class="form-control" placeholder="Enter Password" />
+            <hr />
+            <input type="submit" class="btn btn-block btn-primary" name="signup" value="Sign Up"/>
+            <hr />      
+            <a href="login.html">Sign in Here...</a>
+        </form>
+    </div>
+
+    </body>
+</html>

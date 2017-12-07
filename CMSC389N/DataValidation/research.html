@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Research</title>
+
+    <!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">-->
+    <link rel="stylesheet" href="research.css">
+    <script src="research.js"></script>
+</head>
+<body>
+    <h1 id="title"><u>Research Form</u></h1>
+    <form action="researchProcessing.php" id="infoForm" method="get">
+        <fieldset>
+            <legend>General Information</legend>
+            First Name: <input type="text" name="firstname" placeholder="John" required>
+            Last Name: <input type="text" name="lastname" placeholder="Smith" required> <br>
+            Phone: <input id="phone1" type="text" name="phoneFirstPart" placeholder="301" required> -
+            <input id="phone2" type="text" name="phoneSecondPart" placeholder="555" required> -
+            <input id="phone3" type="text" name="phoneThirdPart" placeholder="4539" required>
+            Email: <input type="email" name="email" placeholder="john@smith.not.real" required> <br>
+        </fieldset>
+        <fieldset>
+            <legend>Research Study Data</legend>
+            <fieldset>
+                <legend>Age/Height/Weight</legend>
+                <strong>Age:</strong> <input name="age" type="number" min="1" max="125" step="1" placeholder="40" style="width: 2.5em" required>   &nbsp&nbsp&nbsp;
+                <strong>Height:</strong> <input name="heightFeet" min="2" max="7" type="number" step="1" placeholder="5" style="width: 2.5em" required>Feet
+                <input name="heightInches" type="number" min="0" max="12" step="1" placeholder="11" style="width: 2.5em" required>Inches    &nbsp&nbsp&nbsp&nbsp;
+                <strong>Weight:</strong><input name="weight" type="number" min="1" max="600" step="1" placeholder="145" style="width: 3.5em" required>Pounds
+            </fieldset>
+            <fieldset>
+                <legend>Conditions</legend>
+                Which of the following conditions are present in your family?(Check all that apply)<br>
+                <input id="cond1" type="checkbox" name="highBloodPressure"> High Blood Pressure
+                <input id="cond2" type="checkbox" name="diabetes"> diabetes
+                <input id="cond3" type="checkbox" name="glaucoma"> glaucoma
+                <input id="cond4" type="checkbox" name="asthma"> asthma
+                <input id="cond5" type="checkbox" name="none"> none
+            </fieldset>
+            <fieldset>
+                <legend>Time Period</legend>
+                How long have you experienced any of the above conditions<br>
+                <input type="radio" name="period"> Never
+                <input type="radio" name="period" > Less than a year
+                <input type="radio" name="period"> One to two years
+                <input type="radio" name="period"> More than two years
+            </fieldset>
+            <fieldset>
+                <legend>Study Information</legend>
+                Which study are you taking part of?
+                <select name="studyType" required>
+                    <option>Long Term</option>
+                    <option>Short Term</option>
+                </select>
+                Assigned Study id: <input id="studyID1" name="firstFourDigits" placeholder="A234" required> - <input id="studyID2" name="secondFourDigits" placeholder="B756" required>
+            </fieldset>
+            <fieldset>
+                <legend>Additional Information (Comments)</legend>
+                <textarea name="comments" placeholder="Additional family members can participate"></textarea>
+            </fieldset>
+        </fieldset>
+        <fieldset>
+            <button type="reset" value="Reset" >Clear Form</button>
+            <input type="submit" value="Submit Information"/>
+        </fieldset>
+    </form>
+
+
+
+</body>
+</html>

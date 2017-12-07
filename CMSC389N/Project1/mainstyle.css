@@ -1,0 +1,63 @@
+#googleMap {
+    width: 80%;
+    height: 40em;
+    margin: auto;
+}
+
+#background {
+    background-color: lightblue;
+}
+
+#image {
+    border-radius: 25px;
+}
+
+#shadow {
+    text-shadow: 2px 2px 4px #000000;
+    color: white;
+}
+
+.classSelector {
+    font-size: 1.2em;
+    font-family: "Comic Sans MS";
+}
+
+#lowerLatin {
+    list-style-type: lower-latin;
+}
+
+#square {
+    list-style-type: square;
+}
+
+p:hover {
+    background-color: yellow;
+}
+
+a:link {
+    color: blue;
+}
+
+a:visited {
+    color: purple;
+}
+
+a:hover {
+    color: yellow;
+}
+
+a:active {
+    color: red;
+}
+
+thead {
+    color: red;
+}
+
+tbody {
+    color: black;
+}
+
+tfoot {
+    color: blue;
+}

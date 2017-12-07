@@ -1,0 +1,168 @@
+<!--CMSC389N Project1 - Shanshi Wang-->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Geography of China</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="mainstyle.css" />
+</head>
+
+<body>
+
+<!-- The use of the .navbar-fixed-top keeps the navbar fixed as you scroll-->
+<nav class="navbar navbar-default navbar-fixed-top">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="#">Geography of China</a>
+        </div>
+        <ul class="nav navbar-nav">
+            <li class="active"><a href="#">Home</a></li>
+            <li><a href="https://en.wikipedia.org/wiki/China">Wikipedia</a></li>
+        </ul>
+    </div>
+</nav>
+
+<div class="jumbotron text-center">
+    <h1>Geography of China</h1>
+    <p id="test" >On this website, you can virtually explore China</p>
+</div>
+
+
+<div id="background">
+<!-- notice how we made the image centered by adding the .center-block class -->
+<div class="container-fluid text-center" >
+    <section>
+        <h1>Introduction</h1>
+    </section>
+
+    <article>
+        <header >source: "https://en.wikipedia.org/wiki/China"</header>
+        <p class = "classSelector" style="text-align: center; width: 80%; height: 10em; margin: auto">China, officially the People's Republic of China (PRC), is a unitary sovereign state in East Asia. With a
+            population of over 1.381 billion, it is the world's most populous country. The state is governed by the
+            Communist Party of China, and its capital is Beijing. It exercises jurisdiction over 22 provinces,
+            five autonomous regions, four direct-controlled municipalities (Beijing, Tianjin, Shanghai, and Chongqing),
+            and two mostly self-governing special administrative regions (Hong Kong and Macau), and claims sovereignty
+            over Taiwan. The country's major urban areas include Shanghai, Guangzhou, Beijing, Chongqing, Shenzhen,
+            Tianjin and Hong Kong. China is a great power and a major regional power within Asia, and has been characterized
+            as a potential superpower.
+        </p>
+    </article>
+
+
+    <a href="http://www.greatwall-of-china.com/"><img id = "image" class="img-responsive" style="display:inline" src="Great_Wall.jpg" alt="demo-image" width="460" height="345" ></a>
+
+</div>
+
+<div style="text-align: center; margin-top: 5em">
+    <h1 style="margin-bottom: 0.4em" id="shadow">Chinese City Comparator</h1>
+    <!-- Table with colspan and  rowspan-->
+    <table border="1" style="margin-left: 30em">
+        <thead>
+            <tr> <th>Cities</th>                         <th>Population</th>          <th>Location</th>               <th colspan="2">GDP</th> </tr>
+        </thead>
+        <tbody>
+            <tr> <td>Beijing</td>                        <td>21,500,000</td>          <td>North</td>                  <td>$314 billion (Total)</td> <td>$15,051 (Per Person)</td> </tr>
+            <tr> <td>Shanghai</td>                       <td>35,965,403	</td>         <td>East</td>                   <td>$297 billion (Total)</td> <td>$12,784 (Per Person)</td></tr>
+            <tr> <td>Guangzhou</td>                      <td>44,294,245	</td>         <td>South</td>                  <td>$295 billion (Total)</td> <td>$21,872 (Per Person)</td></tr>
+
+        </tbody>
+        <tfoot>
+            <tr> <td rowspan="3">Zhejiang Province</td>  <td>55,643,841 (Total)</td>  <td rowspan="3">South-East</td> <td colspan="2">$700 billion</td></tr>
+            <tr> 	       		                         <td>7,639,000 (Ningbo)</td>  <td colspan="2">$123.75 billion</td>          </tr>
+            <tr> 	       		       	                 <td>9,188,000 (Hangzhou)</td><td colspan="2">$166.37 billion</td>   </tr>
+        </tfoot>
+    </table>
+</div>
+
+<hr>
+<div class="container">
+    <h2>Bootstrap Grid System</h2>
+    <div class="row">
+        <div class="col-sm-4">
+            <h3>Municipalities</h3>
+            <ul id = "lowerLatin">
+                <li>Beijing</li>
+                <li>Shanghai</li>
+                <li>Chongqing</li>
+                <li>Tianjin</li>
+            </ul>
+        </div>
+        <div class="col-sm-4">
+            <h3>Cities</h3>
+            <ol >
+                <li>Prefecture-level
+                    <ol >
+                        <li>Anqing</li>
+                        <li>Bengbu</li>
+                        <li>Bozhou</li>
+                        <li>etc</li>
+                    </ol>
+                </li>
+                <li>County-level
+                    <ul id = "square">
+                        <li>Chaohu</li>
+                        <li>Jieshou</li>
+                        <li>Mingguang</li>
+                        <li>etc</li>
+                    </ul>
+                </li>
+            </ol>
+        </div>
+        <div class="col-sm-4">
+            <h3>Special administrative regions</h3>
+            <ul>
+                <li>Hong Kong</li>
+                <li>Macau</li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<!--Google Map API-->
+<div id="googleMap"></div>
+
+</div>
+<hr>
+<footer class="container-fluid bg-4 text-center">
+    <p>Site made by Shanshi Wang &copy; &nbsp; Empowered by <a href="http://getbootstrap.com/">Bootstrap</a> </p>
+</footer>
+
+
+
+<script>
+    function myMap() {
+        var mapProp= {
+            center:new google.maps.LatLng(36.701797, 106.910285),
+            zoom:4,
+        };
+        var map=new google.maps.Map(document.getElementById("googleMap"),mapProp);
+
+        var marker1 = new google.maps.Marker({
+            position: new google.maps.LatLng(31.2304, 121.4737),
+            map: map,
+            title: 'Shanghai'
+        });
+
+        var marker2 = new google.maps.Marker({
+            position: new google.maps.LatLng(39.9042, 116.4074),
+            map: map,
+            title: 'Beijing'
+        });
+
+        var marker3 = new google.maps.Marker({
+            position: new google.maps.LatLng(23.1291, 113.2644),
+            map: map,
+            title: 'Guangzhou'
+        });
+    }
+</script>
+
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCZdwd7dsh5gQhyocMIeE2HMuBo4Vu7fUw&callback=myMap"></script>
+
+
+</body>
+
+</html>
